@@ -14,7 +14,7 @@ let div = function(arr){
     let divEl = document.getElementById('emails');
     for (let i=0; i < arr.length; i++){
         let child = document.createElement('p');
-        let text = document.createTextNode(`${arr[i]}`);
+        let text = document.createTextNode(arr[i]);
         child.append(text);
         divEl.appendChild(child);
     }
@@ -40,11 +40,19 @@ let httpRequest = function(){
 httpRequest();
 
 // Fetch 
-fetch('https://jsonplaceholder.typicode.com/users',{
-    method:'get'
-}).then(function(response){
-    console.log(response)
-}).catch(function(err){
-    console.log('GoodBye');
-});
+let writeToFetch = function(data){
+  let div2 = document.getElementById('users');
+  for (let i=0; i < data.length; ++i){
+    let child = document.createElement('p');
+    let text = document.createTextNode(data[i].username);
+    child.append(text);
+    div2.append(child);
+  }
+}
 
+fetch('https://jsonplaceholder.typicode.com/users')
+  .then(function(response){
+    return response.json()
+  }).then(function(data){
+      writeToFetch(data);
+  })
