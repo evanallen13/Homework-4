@@ -18,7 +18,7 @@ let div = function(arr){
         child.append(text);
         divEl.appendChild(child);
     }
-    };
+};
 
 let httpRequest = function(){
     const req = new XMLHttpRequest();
@@ -40,8 +40,16 @@ let httpRequest = function(){
 httpRequest();
 
 // Fetch 
-let writeToFetch = function(data){
+const byLength = function (x,y){
+  if(x.username.length < y.username.length){
+    return -1
+  }else {
+    return 1
+  }
+}
+const writeToFetch = function(data){
   let div2 = document.getElementById('users');
+  data = data.sort(byLength);
   for (let i=0; i < data.length; ++i){
     let child = document.createElement('p');
     let text = document.createTextNode(data[i].username);
@@ -49,7 +57,6 @@ let writeToFetch = function(data){
     div2.append(child);
   }
 }
-
 fetch('https://jsonplaceholder.typicode.com/users')
   .then(function(response){
     return response.json()
